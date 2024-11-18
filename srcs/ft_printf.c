@@ -6,11 +6,11 @@
 /*   By: mreinald <mreinald@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 16:29:15 by mreinald          #+#    #+#             */
-/*   Updated: 2024/11/18 16:30:27 by mreinald         ###   ########.fr       */
+/*   Updated: 2024/11/18 20:40:46 by mreinald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/ft_libft.h"
+#include "../include/ft_libft.h"
 
 static int	is_type(char c)
 {
@@ -39,7 +39,7 @@ int	ft_printf(const char *type, ...)
 	{
 		if (type[i] == '%' && type[i + 1] && is_type(type[i + 1]))
 		{
-			count += X
+
 		}	
 		else
 		{
