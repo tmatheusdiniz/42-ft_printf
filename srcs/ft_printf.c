@@ -10,45 +10,68 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_libft.h"
+#include "../include/ft_printf.h"
 
-static int	is_type(char c)
+int is_format(char c)
 {
-	const char	*types;
+	const char	*formats;
 	
-	types = "cspdiuxX%";
-	while (*types)
+	formats = "cspdiuxX%";
+	while (*formats)
 	{
-		if (c == *types)
+		if (c == *formats)
 			return (1);
-		types ++;
+		formats ++;
 	}
 	return (0);
 }
 
-int	ft_printf(const char *type, ...)
+int	formats(const char *string, size_t *i, va_list args)
+{
+	t_flags	*flags;
+
+	flags = flags_handler(string, i);
+	if (string[*i] == 's')
+		return (string_handler(args, flags));
+	else if (string[*i] == 'c')
+		return (char_handler(args, flags));
+	else if (string[*i] == 'i' || string[*i] == 'd')
+		return (integer_handler(args, flags));
+	else if (string[*i] == 'u')
+		return (unsignedint_handler(args, flags));
+	else if (string[*i] == 'p')
+		return (pointer_handler(args, flags));
+	else if (string[*i] == '%')
+		return (percentage_handler(flags));
+	else if (string[*i] == 'x' && ft_isupper(string[*i]))
+		return (hexdecimal_handler(args, flags, 1));
+	else if (string[*i] == 'x')
+		return (hexdecimal_handler(args, flags, 0));
+	free(flags);
+	return (0);
+}
+
+int	ft_printf(const char *string, ...)
 {
 	int	count;
 	size_t	i;
-	va_list	md;
+	va_list	args;
 
 	i = 0;
 	count = 1;
-	va_start(md, type);
-	while (type[i])
+	va_start(args, string);
+	while (string[i])
 	{
-		if (type[i] == '%' && type[i + 1] && is_type(type[i + 1]))
-		{
-
-		}	
+		if (string[i] == '%')
+			formats(string, &i, args);
 		else
 		{
-			ft_putstr_fd((char *)&type[i + 1], STDOUT_FILENO);
+			ft_putstr_fd((char *)&string[i + 1], STDOUT_FILENO);
 			count ++;
 		}
 		i ++;
 	}
-	va_end(md);
+	va_end(args);
 	return (count);
 }
 
