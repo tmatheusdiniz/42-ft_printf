@@ -13,7 +13,6 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-#include <cstdarg>
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -21,22 +20,23 @@
 # include "../Libft/libft.h"
 
 # define HEXBASE "0123456789abcdef"
+# define TYPES "%cspdiuxX\0"
+# define FLAGS "-0.# +"
 
 # define TRUE 1
 # define FALSE 0
 
-
 typedef struct s_flags
 {
-	int	plus;
-	int	minus;
+	int	sign_plus;
+	int	left_aligment;
 	int	zero;
 	int	width;
 	int	dot;
 	int	precision;
 	int	hashtag;
 	int	space;
-}			t_flags;
+}		t_flags;
 
 // The main
 int		ft_printf(const char *string, ...);

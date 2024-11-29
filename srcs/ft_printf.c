@@ -12,25 +12,12 @@
 
 #include "../include/ft_printf.h"
 
-int is_format(char c)
-{
-	const char	*formats;
-	
-	formats = "cspdiuxX%";
-	while (*formats)
-	{
-		if (c == *formats)
-			return (1);
-		formats ++;
-	}
-	return (0);
-}
-
 int	formats(const char *string, size_t *i, va_list args)
 {
 	t_flags	*flags;
 
-	flags = flags_handler(string, i);
+	while (ft_memchr(FLAGS, string[*i], 6) || ft_isdigit(string[*i]))
+		flags = flags_handler(string, i);
 	if (string[*i] == 's')
 		return (string_handler(args, flags));
 	else if (string[*i] == 'c')
@@ -53,25 +40,25 @@ int	formats(const char *string, size_t *i, va_list args)
 
 int	ft_printf(const char *string, ...)
 {
-	int	count;
+	int		count;
 	size_t	i;
 	va_list	args;
 
+	if (string[0] == '%')
+		return (-1);
 	i = 0;
-	count = 1;
+	count = 0;
 	va_start(args, string);
 	while (string[i])
 	{
 		if (string[i] == '%')
-			formats(string, &i, args);
-		else
 		{
-			ft_putstr_fd((char *)&string[i + 1], STDOUT_FILENO);
-			count ++;
+			i ++;
+			count += formats(string, &i, args);
 		}
-		i ++;
+		else
+			count += ft_putchar(string[i++]);
 	}
 	va_end(args);
 	return (count);
 }
-
