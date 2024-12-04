@@ -40,7 +40,7 @@ typedef struct s_flags
 
 // The main
 int		ft_printf(const char *string, ...);
-int		ft_formats(char *string, size_t *i, va_list args);
+int		ft_formats(char *string, size_t *i, va_list args, t_flags *flags);
 
 // to_conversions
 int		string_handler(va_list args, t_flags *flags);
@@ -51,9 +51,18 @@ int		pointer_handler(va_list args, t_flags *flags);
 int		percentage_handler(t_flags *flags);
 int		hexdecimal_handler(va_list args, t_flags *flags, int token);
 
+// Aux String function
+int	print_w_p(char *string, int width, int precision, int left_aligment);
+int	print_p(char *string, int precision);
+int	print_w(char *string, int width);
+
+// Aux Integer function
+int	print_int_l_pp(int number, int precision, int width, int plus);
+
+
 // Flags
 t_flags	*initialization_flags(void);
-t_flags	*flags_handler(const char *string, size_t *i);
+t_flags	*flags_handler(const char *string, size_t *i, t_flags *flags);
 
 // Utils
 int		ft_numsize(long long n);

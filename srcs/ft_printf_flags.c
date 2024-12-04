@@ -40,10 +40,8 @@ void	tratament_flags(const char *string, size_t *i, t_flags *flags)
 		(*i)++;
 }
 
-t_flags	*flags_handler(const char *string, size_t *i)
+t_flags	*flags_handler(const char *string, size_t *i, t_flags *flags)
 {
-	t_flags *flags;
-
 	flags = initialization_flags();
 	if (!flags)
 		return (NULL);

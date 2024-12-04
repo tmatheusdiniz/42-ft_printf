@@ -12,12 +12,10 @@
 
 #include "../include/ft_printf.h"
 
-int	formats(const char *string, size_t *i, va_list args)
+int	formats(const char *string, size_t *i, va_list args, t_flags *flags)
 {
-	t_flags	*flags;
-
 	while (ft_memchr(FLAGS, string[*i], 6) || ft_isdigit(string[*i]))
-		flags = flags_handler(string, i);
+		flags = flags_handler(string, i, flags);
 	if (string[*i] == 's')
 		return (string_handler(args, flags));
 	else if (string[*i] == 'c')
@@ -42,23 +40,27 @@ int	ft_printf(const char *string, ...)
 {
 	int		count;
 	size_t	i;
+	t_flags	*flags;
 	va_list	args;
 
 	if (string[0] == '%')
 		return (-1);
 	i = 0;
 	count = 0;
+	flags = NULL;
 	va_start(args, string);
 	while (string[i])
 	{
 		if (string[i] == '%')
 		{
 			i ++;
-			count += formats(string, &i, args);
+			count += formats(string, &i, args, flags);
 		}
 		else
 			count += ft_putchar(string[i++]);
 	}
+	if (flags)
+		free(flags);
 	va_end(args);
 	return (count);
 }
