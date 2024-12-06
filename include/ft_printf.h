@@ -54,11 +54,18 @@ int		hexdecimal_handler(va_list args, t_flags *flags, int token);
 // Aux String function
 int	print_w_p(char *string, int width, int precision, int left_aligment);
 int	print_p(char *string, int precision);
-int	print_w(char *string, int width);
+int	print_w(char *sring, int width);
 
 // Aux Integer function
-int	print_int_l_pp(int number, int precision, int width, int plus);
+int	print_int_left_pp(int number, int precision, int width, int plus);
+int	print_int_p(int number, int precision, int space, int sign_plus);
+int	print_zero(int number, int width, int zero, int sign_plus);
+int	print_aux_w(int width, int size_number, int sign_plus, char zero_or_space);
+int	print_int_left_pp(int number, int precision, int width, int sign_plus);
 
+//Aux Pointer function
+int	print_width(int width, int left_aligment, int size_address, size_t number);
+int	print_null(int left_aligment, int width);
 
 // Flags
 t_flags	*initialization_flags(void);
@@ -66,6 +73,6 @@ t_flags	*flags_handler(const char *string, size_t *i, t_flags *flags);
 
 // Utils
 int		ft_numsize(long long n);
-void	ft_putnbr_base(unsigned long long n, char *base, int *i);
+int		ft_putnbr_base(unsigned long long n, char *base);
 
 #endif

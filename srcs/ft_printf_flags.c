@@ -58,7 +58,7 @@ t_flags	*flags_handler(const char *string, size_t *i, t_flags *flags)
 			flags->hashtag = TRUE;
 		if (string[*i] == '0')
 			flags->zero = TRUE;
-		i ++;
+		(*i)++;
 	}
 	if (ft_isdigit(string[*i]) || string[*i] == '.')
 		tratament_flags(string, i, flags);
