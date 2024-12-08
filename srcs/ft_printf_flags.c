@@ -15,7 +15,8 @@
 
 t_flags	*initialization_flags(void)
 {
-	t_flags *flags;
+	t_flags	*flags;
+
 	flags = (t_flags *)malloc(sizeof(t_flags));
 	if (!flags)
 		return (NULL);
@@ -42,11 +43,12 @@ void	tratament_flags(const char *string, size_t *i, t_flags *flags)
 
 t_flags	*flags_handler(const char *string, size_t *i, t_flags *flags)
 {
-	flags = initialization_flags();
+	if (!flags)
+		flags = initialization_flags();
 	if (!flags)
 		return (NULL);
 	while (string[*i] == '-' || string[*i] == '+' || string[*i] == ' '
-			|| string[*i] == '#' || string[*i] == '0')
+		|| string[*i] == '#' || string[*i] == '0')
 	{
 		if (string[*i] == '-')
 			flags->left_aligment = TRUE;

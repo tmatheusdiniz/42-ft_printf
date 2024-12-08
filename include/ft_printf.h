@@ -20,6 +20,7 @@
 # include "../Libft/libft.h"
 
 # define HEXBASE "0123456789abcdef"
+# define HEXBASEUP "0123456789ABCDEF"
 # define TYPES "%cspdiuxX\0"
 # define FLAGS "-0.# +"
 
@@ -48,24 +49,38 @@ int		char_handler(va_list args, t_flags *flags);
 int		integer_handler(va_list args, t_flags *flags);
 int		unsignedint_handler(va_list args, t_flags *flags);
 int		pointer_handler(va_list args, t_flags *flags);
-int		percentage_handler(t_flags *flags);
-int		hexdecimal_handler(va_list args, t_flags *flags, int token);
+int		percentage_handler();
+int		hexdecimal_handler(va_list args, t_flags *flags, char token);
 
 // Aux String function
-int	print_w_p(char *string, int width, int precision, int left_aligment);
-int	print_p(char *string, int precision);
-int	print_w(char *sring, int width);
+int		print_w_p(char *string, int width, int precision, int left_aligment);
+int		print_p(char *string, int precision);
+int		print_w(char *sring, int width);
 
 // Aux Integer function
-int	print_int_left_pp(int number, int precision, int width, int plus);
-int	print_int_p(int number, int precision, int space, int sign_plus);
-int	print_zero(int number, int width, int zero, int sign_plus);
-int	print_aux_w(int width, int size_number, int sign_plus, char zero_or_space);
-int	print_int_left_pp(int number, int precision, int width, int sign_plus);
+int		print_int_left_pp(int number, int precision, int width, int plus);
+int		print_int_p(int number, int precision, int space, int sign_plus);
+int		print_zero(int number, int width, int zero, int sign_plus);
+int		print_aux_w(int width, int size_number,
+			int sign_plus, char zero_or_space);
+int		print_int_left_pp(int number, int precision, int width, int sign_plus);
+
+//Aux Unsigned Int function
+int		unsignedint_leftalig(long int number, int numbersize, t_flags *flags);
+int		unsignedint_prec(long int number, int precision);
+int		unsignedint_w(long int number, int numbersize, t_flags *flags);
+int		unsignedint_w_l(long int number, int numbersize, t_flags *flags);
 
 //Aux Pointer function
-int	print_width(int width, int left_aligment, int size_address, size_t number);
-int	print_null(int left_aligment, int width);
+int		print_width(int width, int left_aligment,
+			int size_address, size_t number);
+int		print_null(int left_aligment, int width);
+
+//Aux Hexdecimal function
+int		print_hex_leftalig(t_flags *flags, long number, char token);
+int		print_hex_precision(long number, int precision, char token);
+int		print_hex_width(t_flags *flags, long number, char flag, char token);
+int		print_hashtag(long number, int hashtag, char token);
 
 // Flags
 t_flags	*initialization_flags(void);
@@ -73,6 +88,8 @@ t_flags	*flags_handler(const char *string, size_t *i, t_flags *flags);
 
 // Utils
 int		ft_numsize(long long n);
+int		ft_hexsize(size_t n);
+int		ft_putnbr(long long n);
 int		ft_putnbr_base(unsigned long long n, char *base);
 
 #endif

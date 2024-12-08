@@ -20,16 +20,17 @@ int	integer_handler(va_list args, t_flags *flags)
 	count = 0;
 	number = va_arg(args, int);
 	if (flags->left_aligment && flags->precision)
-		return (print_int_left_pp(number, flags->precision,
-				flags->width, flags->sign_plus));
+		count += print_int_left_pp(number, flags->precision,
+				flags->width, flags->sign_plus);
 	else if (flags->precision)
-		return (print_int_p(number, flags->precision,
-				flags->space, flags->sign_plus));
+		count += print_int_p(number, flags->precision,
+				flags->space, flags->sign_plus);
 	else if (flags->zero)
-		return (print_zero(number,
-				flags->width, TRUE, flags->sign_plus));
+		count += print_zero(number,
+				flags->width, TRUE, flags->sign_plus);
 	else
-		return (free(flags), count += ft_putstr(ft_itoa(number)), count);
+		count += ft_putstr(ft_itoa(number));
+	return (count);
 }
 
 int	print_int_p(int number, int precision, int space, int sign_plus)
@@ -89,6 +90,7 @@ int	print_aux_w(int width, int size_number, int sign_plus, char zero_or_space)
 {
 	int	count;
 
+	count = 0;
 	if (sign_plus && zero_or_space != '0')
 		count += ft_putchar('+');
 	while (width > size_number)

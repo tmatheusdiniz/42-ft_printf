@@ -15,21 +15,20 @@
 int	string_handler(va_list args, t_flags *flags)
 {
 	int		count;
-	int		string_size;
 	char	*string;
 
 	count = 0;
 	string = va_arg(args, char *);
-	string_size = ft_strlen(string);
 	if (flags->width && flags->precision)
-		return (print_w_p(string, flags->width,
-				flags->precision, flags->left_aligment));
+		count += print_w_p(string, flags->width,
+				flags->precision, flags->left_aligment);
 	else if (flags->precision)
-		return (print_p(string, flags->precision));
+		count += print_p(string, flags->precision);
 	else if (flags->width)
-		return (print_w(string, flags->width));
-	free(flags);
-	return (ft_putstr(string));
+		count += print_w(string, flags->width);
+	else
+		count += ft_putstr(string);
+	return (count);
 }
 
 int	print_w_p(char *string, int width, int precision, int left_aligment)

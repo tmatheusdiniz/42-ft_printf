@@ -30,13 +30,39 @@ int	ft_numsize(long long n)
 	return (count);
 }
 
+int	ft_hexsize(size_t n)
+{
+	int	count;
+
+	count = 1;
+	if (n >= 16)
+		count += ft_hexsize(n / 16);
+	return (count);
+}
+
+int	ft_putnbr(long long n)
+{
+	int	count;
+
+	count = 0;
+	if (n < 0)
+	{
+		n = -n;
+		count += ft_putchar('-');
+	}
+	if (n > 9)
+		ft_putnbr(n / 10);
+	else
+		count += ft_putchar(n % 10 + '0');
+	return (count);
+}
+
 int	ft_putnbr_base(unsigned long long n, char *base)
 {
 	int					count;
 	unsigned long long	base_size;
 
 	count = 0;
-	base = HEXBASE;
 	base_size = ft_strlen(base);
 	while (n >= base_size)
 		count += ft_putnbr_base (n / base_size, base);

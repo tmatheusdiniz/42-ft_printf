@@ -20,7 +20,7 @@ int	pointer_handler(va_list args, t_flags *flags)
 
 	count = 0;
 	address = va_arg(args, size_t);
-	size_address = ft_numsize(address);
+	size_address = ft_hexsize(address);
 	if (address == 0)
 	{
 		if (size_address >= flags->width)
@@ -37,7 +37,7 @@ int	pointer_handler(va_list args, t_flags *flags)
 				flags->left_aligment, size_address, address);
 	else
 		count += ft_putnbr_base(address, HEXBASE);
-	return (free(flags), count);
+	return (count);
 }
 
 int	print_width(int width, int left_aligment, int size_address, size_t number)

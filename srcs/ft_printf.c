@@ -14,8 +14,12 @@
 
 int	formats(const char *string, size_t *i, va_list args, t_flags *flags)
 {
-	while (ft_memchr(FLAGS, string[*i], 6) || ft_isdigit(string[*i]))
+	while ((string[*i] && ft_memchr(FLAGS, string[*i], 6))
+		|| (ft_isdigit(string[*i])))
+	{
 		flags = flags_handler(string, i, flags);
+		(*i)++;
+	}
 	if (string[*i] == 's')
 		return ((*i)++, string_handler(args, flags));
 	else if (string[*i] == 'c')
@@ -28,11 +32,8 @@ int	formats(const char *string, size_t *i, va_list args, t_flags *flags)
 		return ((*i)++, pointer_handler(args, flags));
 	else if (string[*i] == '%')
 		return ((*i)++, percentage_handler(flags));
-	else if (string[*i] == 'x' && ft_isupper(string[*i]))
-		return ((*i)++, hexdecimal_handler(args, flags, 1));
-	else if (string[*i] == 'x')
-		return ((*i)++, hexdecimal_handler(args, flags, 0));
-	free(flags);
+	else if (string[*i] == 'x' || string[*i] == 'X')
+		return ((*i)++, hexdecimal_handler(args, flags, string[*i]));
 	return (0);
 }
 
@@ -40,27 +41,25 @@ int	ft_printf(const char *string, ...)
 {
 	int		count;
 	size_t	i;
-	t_flags	*flags;
+	t_flags	flags;
 	va_list	args;
 
 	if (string[0] == '%')
 		return (-1);
 	i = 0;
 	count = 0;
-	flags = NULL;
 	va_start(args, string);
 	while (string[i])
 	{
+		ft_bzero(&flags, sizeof(t_flags));
 		if (string[i] == '%')
 		{
 			i ++;
-			count += formats(string, &i, args, flags);
+			count += formats(string, &i, args, &flags);
 		}
 		else
 			count += ft_putchar(string[i++]);
 	}
-	if (flags)
-		free(flags);
 	va_end(args);
 	return (count);
 }

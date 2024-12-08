@@ -12,9 +12,8 @@
 
 #include "../include/ft_printf.h"
 
-int	percentage_handler(t_flags *flags)
+int	percentage_handler()
 {
 	ft_putchar('%');
-	free(flags);
 	return (1);
 }

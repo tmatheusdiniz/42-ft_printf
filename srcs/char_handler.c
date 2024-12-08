@@ -33,7 +33,5 @@ int	char_handler(va_list args, t_flags *flags)
 	}
 	else
 		count += ft_putchar(c);
-	flags->width = 0;
-	free(flags);
 	return (count);
 }
