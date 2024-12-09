@@ -15,13 +15,13 @@
 
 int	unsignedint_handler(va_list args, t_flags *flags)
 {
-	int	number;
-	int	count;
-	int	numbersize;
+	unsigned int	number;
+	int				count;
+	int				numbersize;
 
 	number = va_arg(args, unsigned int);
 	count = 0;
-	numbersize = ft_numsize(number);
+	numbersize = ft_numsize_unsig(number);
 	if (flags->left_aligment)
 		count += unsignedint_leftalig(number, numbersize, flags);
 	else if (flags->width && flags->width > 0)
@@ -29,7 +29,7 @@ int	unsignedint_handler(va_list args, t_flags *flags)
 	else if (flags->precision && flags->precision > 0)
 		count += unsignedint_prec(number, flags->precision);
 	else
-		count += ft_putnbr(number);
+		count += ft_putnbr_unsig(number);
 	return (count);
 }
 

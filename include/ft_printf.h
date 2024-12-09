@@ -77,10 +77,10 @@ int		print_width(int width, int left_aligment,
 int		print_null(int left_aligment, int width);
 
 //Aux Hexdecimal function
-int		print_hex_leftalig(t_flags *flags, long number, char token);
-int		print_hex_precision(long number, int precision, char token);
+int		print_hex_leftalig(t_flags *flags, long unsigned number, char token);
+int		print_hex_precision(long unsigned number, int precision, char token);
 int		print_hex_width(t_flags *flags, long number, char flag, char token);
-int		print_hashtag(long number, int hashtag, char token);
+int		print_hashtag(long unsigned number, int hashtag, char token);
 
 // Flags
 t_flags	*initialization_flags(void);
@@ -88,8 +88,10 @@ t_flags	*flags_handler(const char *string, size_t *i, t_flags *flags);
 
 // Utils
 int		ft_numsize(long long n);
+int		ft_numsize_unsig(unsigned int n);
 int		ft_hexsize(size_t n);
 int		ft_putnbr(long long n);
+int		ft_putnbr_unsig(unsigned int n);
 int		ft_putnbr_base(unsigned long long n, char *base);
 
 #endif

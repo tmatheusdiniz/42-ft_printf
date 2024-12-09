@@ -14,9 +14,9 @@
 
 int	hexdecimal_handler(va_list args, t_flags *flags, char token)
 {
-	int		count;
-	char	flag;
-	long	number;
+	int					count;
+	char				flag;
+	long unsigned int	number;
 
 	count = 0;
 	number = va_arg(args, unsigned int);
@@ -31,13 +31,17 @@ int	hexdecimal_handler(va_list args, t_flags *flags, char token)
 	else if (flags->precision)
 		count += print_hex_precision(number, flags->precision, token);
 	else if (ft_isupper(token))
-		count += ft_putnbr_base(number, HEXBASE);
+		return (count += print_hashtag(number, flags->hashtag, token),
+			count += ft_putnbr_base(number, HEXBASEUP), count);
 	else
-		count += ft_putnbr_base(number, HEXBASEUP);
+	{
+		count += print_hashtag(number, flags->hashtag, token);
+		count += ft_putnbr_base(number, HEXBASE);
+	}
 	return (count);
 }
 
-int	print_hex_leftalig(t_flags *flags, long number, char token)
+int	print_hex_leftalig(t_flags *flags, long unsigned number, char token)
 {
 	int	count;
 
@@ -72,7 +76,7 @@ int	print_hex_width(t_flags *flags, long number, char flag, char token)
 	return (count);
 }
 
-int	print_hashtag(long number, int hashtag, char token)
+int	print_hashtag(long unsigned number, int hashtag, char token)
 {
 	int	count;
 
@@ -82,14 +86,16 @@ int	print_hashtag(long number, int hashtag, char token)
 	return (count);
 }
 
-int	print_hex_precision(long number, int precision, char token)
+int	print_hex_precision(long unsigned number, int precision, char token)
 {
 	int	count;
+	int	parameter;
 
-	count = ft_hexsize(number);
+	count = 0;
+	parameter = ft_hexsize(number);
 	if (number == 0 && precision == 0)
 		return (0);
-	while (precision > count)
+	while (precision > parameter)
 		count += ft_putchar('0');
 	if (ft_isupper(token))
 		count += ft_putnbr_base(number, HEXBASEUP);

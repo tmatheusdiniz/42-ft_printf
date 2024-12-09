@@ -36,7 +36,7 @@ void	tratament_flags(const char *string, size_t *i, t_flags *flags)
 	if (string[*i] == '.')
 		flags->precision = ft_atoi(&string[++(*i)]);
 	else
-		flags->width = ft_atoi(&string[++(*i)]);
+		flags->width = ft_atoi(&string[(*i)]);
 	while (ft_isdigit(string[*i]))
 		(*i)++;
 }

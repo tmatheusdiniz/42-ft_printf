@@ -1,19 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   percentage_handler.c                               :+:      :+:    :+:   */
+/*   ft_printf_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mreinald <mreinald@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/27 21:16:54 by mreinald          #+#    #+#             */
-/*   Updated: 2024/11/27 23:48:25 by mreinald         ###   ########.fr       */
+/*   Created: 2024/12/08 23:10:51 by mreinald          #+#    #+#             */
+/*   Updated: 2024/12/08 23:10:55 by mreinald         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf.h"
 
-int	percentage_handler(void)
+int	ft_numsize_unsig(unsigned int n)
 {
-	ft_putchar('%');
-	return (1);
+	int	size;
+
+	size = 0;
+	if (n == 0)
+		return (1);
+	while (n > 0)
+	{
+		n /= 10;
+		size++;
+	}
+	return (size);
+}
+
+int	ft_putnbr_unsig(unsigned int n)
+{
+	int	count;
+
+	count = 0;
+	if (n > 9)
+		count += ft_putnbr_unsig(n / 10);
+	count += ft_putchar(n % 10 + '0');
+	return (count);
 }

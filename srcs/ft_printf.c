@@ -14,12 +14,10 @@
 
 int	formats(const char *string, size_t *i, va_list args, t_flags *flags)
 {
-	while ((string[*i] && ft_memchr(FLAGS, string[*i], 6))
-		|| (ft_isdigit(string[*i])))
-	{
+	char	c;
+
+	while (ft_memchr(FLAGS, string[*i], 6) || ft_isdigit(string[*i]))
 		flags = flags_handler(string, i, flags);
-		(*i)++;
-	}
 	if (string[*i] == 's')
 		return ((*i)++, string_handler(args, flags));
 	else if (string[*i] == 'c')
@@ -31,9 +29,12 @@ int	formats(const char *string, size_t *i, va_list args, t_flags *flags)
 	else if (string[*i] == 'p')
 		return ((*i)++, pointer_handler(args, flags));
 	else if (string[*i] == '%')
-		return ((*i)++, percentage_handler(flags));
+		return ((*i)++, percentage_handler());
 	else if (string[*i] == 'x' || string[*i] == 'X')
-		return ((*i)++, hexdecimal_handler(args, flags, string[*i]));
+	{
+		c = string[*i];
+		return ((*i)++, hexdecimal_handler(args, flags, c));
+	}
 	return (0);
 }
 
