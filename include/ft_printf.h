@@ -60,10 +60,8 @@ int		print_w(char *sring, int width);
 // Aux Integer function
 int		print_int_left_pp(int number, int precision, int width, int plus);
 int		print_int_p(int number, int precision, int space, int sign_plus);
-int		print_zero(int number, int width, int zero, int sign_plus);
-int		print_aux_w(int width, int size_number,
-			int sign_plus, char zero_or_space);
-int		print_int_left_pp(int number, int precision, int width, int sign_plus);
+int		print_zero(int number, t_flags *flags);
+int		print_w_int(int number, t_flags *flags, int sign_plus, char zero_or_space);
 
 //Aux Unsigned Int function
 int		unsignedint_leftalig(long int number, int numbersize, t_flags *flags);
@@ -93,5 +91,6 @@ int		ft_hexsize(size_t n);
 int		ft_putnbr(long long n);
 int		ft_putnbr_unsig(unsigned int n);
 int		ft_putnbr_base(unsigned long long n, char *base);
+int		print_aux_w(int number, t_flags *flags, int size_number);
 
 #endif

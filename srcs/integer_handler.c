@@ -26,9 +26,9 @@ int	integer_handler(va_list args, t_flags *flags)
 		count += print_int_left_pp(number, flags->precision,
 				flags->width, flags->sign_plus);
 	else if (flags->precision && !flags->width)
-		count += print_int_p(number, flags->precision, flags->spce, flags->sign_plus);
+		count += print_int_p(number, flags->precision, flags->space, flags->sign_plus);
 	else if (flags->precision && flags->width)
-		count += print_aux_w(number, flags, ft_numsize(number), ' ');
+		count += print_w(number, flags, ft_numsize(number), ' ');
 	else if (flags->width && !)
 	else if (flags->zero)
 		count += print_zero(number,
@@ -41,6 +41,7 @@ int	integer_handler(va_list args, t_flags *flags)
 int	print_int_p(int number, int precision, int space, int sign_plus)
 {
 	int		count;
+	
 	int		size_number;
 	char	*number_to_char;
 
@@ -80,18 +81,18 @@ int	print_zero(int number, t_flags *flags)
 	else
 	{
 		if (flags->zero && (!flags->sign_plus || number < 0))
-			count += print_aux_w(width, size_number, FALSE, '0');
-		else if (zero && sign_plus && number > 0)
-			count += print_aux_w(width - 1, size_number, TRUE, '0');
-		else if (sign_plus && number > 0)
-			count += print_aux_w(width - 1, size_number, TRUE, ' ');
+			count += print_w_int(number, flags, FALSE, '0');
+		else if (flags->zero && flags->sign_plus && number > 0)
+			count += print_w_int(number, flags, TRUE, '0'); //width - 1
+		else if (flags->sign_plus && number > 0)
+			count += print_w_int(number, flags, TRUE, ' '); // width - 1
 		while (size_number-- > 0)
 			count = ft_putchar(number_to_char[count++]);
 	}
 	return (free(number_to_char), count);
 }
 
-int	print_w(int number, t_flags *flags, int sign_plus, char zero_or_space)
+int	print_w_int(int number, t_flags *flags, int sign_plus, char zero_or_space)
 {
 	int	count;
 	int	size_number;
@@ -124,11 +125,11 @@ int	print_int_left_pp(int number, t_flags *flags)
 	size_number = ft_numsize(number);
 	aux = size_number;
 	if (flags->precision > flags->width)
-		count += print_int_p(number, flags->precision, FALSE, flags->sign_plus);
-	else if (flags->precision && !flags->width)
+		count += print_int_p(number, flags->precision, flags->space, flags->sign_plus);
+	else if (flags->precision && !flags->width) // join this line with the line above
 		print_int_p(number, flags->precision, flags->space, flags->sign_plus);
 	else if (flags->precision && flags->width)
-		print_w(number, flags, 0, ' ');
+		print_w_int(number, flags, 0, ' ');
 	else
 	{
 		if (flags->sign_plus && number > 0)
