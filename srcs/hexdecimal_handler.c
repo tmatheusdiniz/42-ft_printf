@@ -2,7 +2,7 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   hexdecimal_handler.c                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
+/*                                                  +:+ +:+         +:+     */
 /*   By: mreinald <mreinald@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/06 18:30:13 by mreinald          #+#    #+#             */
@@ -73,6 +73,10 @@ int	print_hex_width(t_flags *flags, long number, char flag, char token)
 	count += print_hashtag(number, flags->hashtag, token);
 	if (flags->precision > parameter)
 		count += print_hex_precision(number, flags->precision, token);
+	if (!flags->precision && !ft_isupper(token))
+		count += ft_putnbr_base(number, HEXBASE);
+	else if (!flags->precision && ft_isupper(token))
+		count += ft_putnbr_base(number, HEXBASEUP);
 	return (count);
 }
 
@@ -95,7 +99,7 @@ int	print_hex_precision(long unsigned number, int precision, char token)
 	parameter = ft_hexsize(number);
 	if (number == 0 && precision == 0)
 		return (0);
-	while (precision > parameter)
+	while (precision-- > parameter)
 		count += ft_putchar('0');
 	if (ft_isupper(token))
 		count += ft_putnbr_base(number, HEXBASEUP);

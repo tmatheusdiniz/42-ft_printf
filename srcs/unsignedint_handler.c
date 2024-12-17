@@ -40,6 +40,8 @@ int	unsignedint_leftalig(long int number, int numbersize, t_flags *flags)
 	count = 0;
 	if (flags->width > 0)
 		count += unsignedint_w_l(number, numbersize, flags);
+	else if (flags->precision > numbersize)
+		count += unsignedint_prec(number, flags->precision);
 	else
 		count += ft_putnbr(number);
 	return (count);
@@ -52,9 +54,14 @@ int	unsignedint_prec(long int number, int precision)
 
 	count = 0;
 	numbersize = ft_numsize(number);
-	while (precision > numbersize)
-		count += ft_putchar('0');
-	count += ft_putnbr(number);
+	if (precision > numbersize)
+	{
+		while (precision-- > numbersize)
+			count += ft_putchar('0');
+		count = ft_putnbr(number);
+	}
+	else
+		count += ft_putnbr(number);
 	return (count);
 }
 
@@ -67,19 +74,19 @@ int	unsignedint_w(long int number, int numbersize, t_flags *flags)
 		numbersize = flags->precision;
 	if (flags->zero && !flags->precision)
 	{
-		while (flags->width > numbersize)
+		while (flags->width-- > numbersize)
 			count += ft_putchar('0');
 		count += ft_putnbr(number);
 	}
 	else if (flags->precision)
 	{
-		while (flags->width > numbersize)
+		while (flags->width-- > numbersize)
 			count += ft_putchar(' ');
 		count += unsignedint_prec(number, flags->precision);
 	}
 	else
 	{
-		while (flags->width > numbersize)
+		while (flags->width-- > numbersize)
 			count += ft_putchar(' ');
 		count += ft_putnbr(number);
 	}
@@ -96,19 +103,19 @@ int	unsignedint_w_l(long int number, int numbersize, t_flags *flags)
 	if (flags->zero && !flags->precision)
 	{
 		count += ft_putnbr(number);
-		while (flags->width > numbersize)
+		while (flags->width-- > numbersize)
 			count += ft_putchar('0');
 	}
 	else if (flags->precision)
 	{
 		count += unsignedint_prec(number, flags->precision);
-		while (flags->width > numbersize)
+		while (flags->width-- > numbersize)
 			count += ft_putchar(' ');
 	}
 	else
 	{
 		count += ft_putnbr(number);
-		while (flags->width > numbersize)
+		while (flags->width-- > numbersize)
 			count += ft_putchar(' ');
 	}
 	return (count);
