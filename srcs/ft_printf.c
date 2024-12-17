@@ -45,7 +45,7 @@ int	ft_printf(const char *string, ...)
 	t_flags	flags;
 	va_list	args;
 
-	if (string[0] == '%')
+	if (!string || (string[0] == '%' && string[1] == '\0'))
 		return (-1);
 	i = 0;
 	count = 0;
