@@ -19,13 +19,13 @@ int	string_handler(va_list args, t_flags *flags)
 
 	count = 0;
 	string = va_arg(args, char *);
-	if (flags->width && flags->precision)
+	if (flags->width > 0 && flags->precision)
 		count += print_w_p(string, flags->width,
-				flags->precision, flags->left_aligment);
-	else if (flags->precision)
-		count += print_p(string, flags->precision);
-	else if (flags->width)
-		count += print_w(string, flags->width);
+				flags->precision - 1, flags->left_aligment);
+	else if (flags->width > 0)
+		count += print_w(string, flags->width, flags->left_aligment);
+	else if (flags->precision > 0)
+		count += print_p(string, flags->precision - 1);
 	else
 		count += ft_putstr(string);
 	return (count);
@@ -37,27 +37,27 @@ int	print_w_p(char *string, int width, int precision, int left_aligment)
 	int	size_string;
 
 	count = 0;
-	if (!string)
+	if (string == NULL)
 	{
+		string = "(null)";
 		if (precision < 6)
 			precision = 0;
-		else
-			count += ft_putstr("(null)");
-		return (count);
 	}
 	size_string = ft_strlen(string);
-	if (precision <= size_string)
+	if (precision < size_string)
 		size_string = precision;
-	precision = size_string;
 	if (size_string >= width)
 		return (print_p(string, size_string));
-	while (left_aligment && precision-- > 0)
-		count += ft_putchar(*string++);
-	while (width -- > size_string)
+	if (left_aligment)
+	{
+		count += print_p(string, precision);
+		while (count < width)
+			count += ft_putchar(' ');
+		return (count);
+	}
+	while (count < width - size_string)
 		count += ft_putchar(' ');
-	while (!left_aligment && precision-- > 0)
-		count += ft_putchar(*string++);
-	return (count);
+	return (count += print_p(string, size_string));
 }
 
 int	print_p(char *string, int precision)
@@ -65,7 +65,7 @@ int	print_p(char *string, int precision)
 	int	count;
 
 	count = 0;
-	if (!string)
+	if (string == NULL)
 	{
 		if (precision < 6)
 			precision = 0;
@@ -78,22 +78,26 @@ int	print_p(char *string, int precision)
 	return (count);
 }
 
-int	print_w(char *string, int width)
+int	print_w(char *string, int width, int left_aligment)
 {
 	int	count;
 	int	size_string;
 
-	count = 0;
-	if (!string)
+	count = 0;	
+	if (string == NULL)
 		string = "(null)";
 	size_string = ft_strlen(string);
 	if (size_string >= width)
 		return (count += ft_putstr(string), count);
-	else
+	if (left_aligment)
 	{
-		while (width -- > 0)
-			count += ft_putchar(' ');
 		count += ft_putstr(string);
+		while (count < width)
+			count += ft_putchar(' ');	
 		return (count);
 	}
+	while (width -- > size_string)
+		count += ft_putchar(' ');
+	count += ft_putstr(string);
+	return (count);
 }

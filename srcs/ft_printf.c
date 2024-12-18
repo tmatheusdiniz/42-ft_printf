@@ -14,28 +14,30 @@
 
 int	formats(const char *string, size_t *i, va_list args, t_flags *flags)
 {
+	int		count;
 	char	c;
-
+	count = 0;
 	while (ft_memchr(FLAGS, string[*i], 6) || ft_isdigit(string[*i]))
 		flags = flags_handler(string, i, flags);
 	if (string[*i] == 's')
-		return ((*i)++, string_handler(args, flags));
+		count += string_handler(args, flags);
 	else if (string[*i] == 'c')
-		return ((*i)++, char_handler(args, flags));
+		count += char_handler(args, flags);
 	else if (string[*i] == 'i' || string[*i] == 'd')
-		return ((*i)++, integer_handler(args, flags));
+		count += integer_handler(args, flags);
 	else if (string[*i] == 'u')
-		return ((*i)++, unsignedint_handler(args, flags));
+		count += unsignedint_handler(args, flags);
 	else if (string[*i] == 'p')
-		return ((*i)++, pointer_handler(args, flags));
+		count += pointer_handler(args, flags);
 	else if (string[*i] == '%')
-		return ((*i)++, percentage_handler());
+		count += percentage_handler();
 	else if (string[*i] == 'x' || string[*i] == 'X')
 	{
 		c = string[*i];
-		return ((*i)++, hexdecimal_handler(args, flags, c));
+		count += hexdecimal_handler(va_arg(args, unsigned int), flags, c);
 	}
-	return (0);
+	(*i)++;
+	return (count);
 }
 
 int	ft_printf(const char *string, ...)

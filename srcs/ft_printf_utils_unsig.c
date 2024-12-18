@@ -37,3 +37,13 @@ int	ft_putnbr_unsig(unsigned int n)
 	count += ft_putchar(n % 10 + '0');
 	return (count);
 }
+
+int	aux_unsigned(t_flags *flags)
+{
+	int	count;
+
+	count = 0;
+	while (flags->width-- > 0)
+		count += ft_putchar(' ');
+	return (count);
+}

@@ -12,24 +12,23 @@
 
 #include "../include/ft_printf.h"
 
-int	hexdecimal_handler(va_list args, t_flags *flags, char token)
+int	hexdecimal_handler(long unsigned int number, t_flags *flags, char token)
 {
-	int					count;
-	char				flag;
-	long unsigned int	number;
+	int		count;
+	char	flag;
 
 	count = 0;
-	number = va_arg(args, unsigned int);
+	flag = ' ';
 	if (flags->zero)
 		flag = '0';
 	if (flags->width && flags->precision)
 		flag = ' ';
 	if (flags->left_aligment)
-		count += print_hex_leftalig(flags, number, token);
+		count += print_hex_leftalig(flags, flags->precision - 1, number, token);
 	else if (flags->width)
 		count += print_hex_width(flags, number, flag, token);
 	else if (flags->precision)
-		count += print_hex_precision(number, flags->precision, token);
+		count += print_hex_precision(number, flags->precision - 1, token);
 	else if (ft_isupper(token))
 		return (count += print_hashtag(number, flags->hashtag, token),
 			count += ft_putnbr_base(number, HEXBASEUP), count);
@@ -41,7 +40,8 @@ int	hexdecimal_handler(va_list args, t_flags *flags, char token)
 	return (count);
 }
 
-int	print_hex_leftalig(t_flags *flags, long unsigned number, char token)
+int	print_hex_leftalig(t_flags *flags, int precision,
+		long unsigned number, char token)
 {
 	int	count;
 
@@ -51,7 +51,7 @@ int	print_hex_leftalig(t_flags *flags, long unsigned number, char token)
 		if (number != 0)
 			count += ft_putchar('0') + ft_putchar(token);
 	}
-	count += print_hex_precision(number, flags->precision, token);
+	count += print_hex_precision(number, precision, token);
 	while (flags->width > count)
 		count += ft_putchar(' ');
 	return (count);
@@ -64,18 +64,22 @@ int	print_hex_width(t_flags *flags, long number, char flag, char token)
 
 	count = ft_hexsize(number);
 	parameter = ft_hexsize(number);
-	if (flags->precision > count)
-		count = flags->precision;
+	if (number == 0 && flags->precision - 1 == 0)
+		return (count += aux_unsigned(flags), count);
+	if (flags->precision - 1 > count)
+		count = flags->precision - 1;
 	if (flags->hashtag)
 		count += 2;
 	while (flags->width > count)
 		count += ft_putchar(flag);
 	count += print_hashtag(number, flags->hashtag, token);
-	if (flags->precision > parameter)
-		count += print_hex_precision(number, flags->precision, token);
-	if (!flags->precision && !ft_isupper(token))
+	if (flags->precision - 1 > parameter)
+		count += print_hex_precision(number, flags->precision - 1, token);
+	if ((!(flags->precision - 1) || flags->precision - 1 <= parameter)
+		&& !ft_isupper(token))
 		count += ft_putnbr_base(number, HEXBASE);
-	else if (!flags->precision && ft_isupper(token))
+	else if ((!(flags->precision - 1) || flags->precision - 1 <= parameter)
+		&& ft_isupper(token))
 		count += ft_putnbr_base(number, HEXBASEUP);
 	return (count);
 }

@@ -50,24 +50,27 @@ int		integer_handler(va_list args, t_flags *flags);
 int		unsignedint_handler(va_list args, t_flags *flags);
 int		pointer_handler(va_list args, t_flags *flags);
 int		percentage_handler(void);
-int		hexdecimal_handler(va_list args, t_flags *flags, char token);
+int		hexdecimal_handler(long unsigned int number, t_flags *flags, char token);
 
 // Aux String function
 int		print_w_p(char *string, int width, int precision, int left_aligment);
 int		print_p(char *string, int precision);
-int		print_w(char *sring, int width);
+int		print_w(char *sring, int width, int left_aligment);
 
 // Aux Integer function
-int		print_int_left_pp(int number, t_flags *flags);
+int		print_int_left_pp(int number, t_flags *flags, int precision);
 int		print_int_p(int number, int precision, int space, int sign_plus);
 int		print_zero(int number, int size_number, t_flags *flags);
-int		print_w_int(int number, t_flags *flags);
+int		print_w_int(int number, t_flags *flags, int precision);
 
 //Aux Unsigned Int function
-int		unsignedint_leftalig(long int number, int numbersize, t_flags *flags);
+int		unsignedint_leftalig(long int number, int numbersize,
+			t_flags *flags, int precision);
 int		unsignedint_prec(long int number, int precision);
-int		unsignedint_w(long int number, int numbersize, t_flags *flags);
-int		unsignedint_w_l(long int number, int numbersize, t_flags *flags);
+int		unsignedint_w(long int number, int numbersize,
+			t_flags *flags, int precision);
+int		unsignedint_w_l(long int number, int numbersize,
+			t_flags *flags, int precision);
 
 //Aux Pointer function
 int		print_width(int width, int left_aligment,
@@ -75,7 +78,8 @@ int		print_width(int width, int left_aligment,
 int		print_null(int left_aligment, int width);
 
 //Aux Hexdecimal function
-int		print_hex_leftalig(t_flags *flags, long unsigned number, char token);
+int		print_hex_leftalig(t_flags *flags, int precision,
+			long unsigned number, char token);
 int		print_hex_precision(long unsigned number, int precision, char token);
 int		print_hex_width(t_flags *flags, long number, char flag, char token);
 int		print_hashtag(long unsigned number, int hashtag, char token);
@@ -91,9 +95,10 @@ int		ft_hexsize(size_t n);
 int		ft_putnbr(long long n);
 int		ft_putnbr_unsig(unsigned int n);
 int		ft_putnbr_base(unsigned long long n, char *base);
-int		print_aux_w(int number, t_flags *flags, int size_number);
-int		aux_zero(int number, int width);
+int		print_aux_w(int number, t_flags *flags, int precision, int size_number);
+int		aux_zero(int number, t_flags *flags);
 int		aux_z_plus(int size_number, int width, int sign_plus);
 int		aux_z_space(int size_number, int width, int space);
+int		aux_unsigned(t_flags *flags);
 
 #endif

@@ -22,11 +22,11 @@ int	pointer_handler(va_list args, t_flags *flags)
 	address = va_arg(args, size_t);
 	size_address = ft_hexsize(address);
 	if (address == 0)
-		count += print_null(flags->left_aligment, flags->width);
-	if (flags->left_aligment || flags->width)
+		return (count += print_null(flags->left_aligment, flags->width), count);
+	if (flags->left_aligment || flags->width > 0)
 		count += print_width(flags->width,
 				flags->left_aligment, size_address, address);
-	else
+	else if (address != 0)
 	{
 		count += ft_putstr("0x");
 		count += ft_putnbr_base(address, HEXBASE);
@@ -50,6 +50,11 @@ int	print_width(int width, int left_aligment, int size_address, size_t number)
 	{
 		while (width-- > size_address + 2)
 			count += ft_putchar(' ');
+		count += ft_putstr("0x");
+		count += ft_putnbr_base(number, HEXBASE);
+	}
+	else
+	{
 		count += ft_putstr("0x");
 		count += ft_putnbr_base(number, HEXBASE);
 	}

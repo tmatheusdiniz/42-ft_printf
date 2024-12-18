@@ -12,40 +12,41 @@
 
 #include "../include/ft_printf.h"
 
-int	print_aux_w(int number, t_flags *flags, int size_number)
+int	print_aux_w(int number, t_flags *flags, int precision, int size_number)
 {
 	int	count;
 
 	count = 0;
-	if (flags->left_aligment && flags->precision && flags->width > 0)
+	if (flags->left_aligment && precision && flags->width > 0)
 	{
-		count += print_int_p(number, flags->precision,
+		count += print_int_p(number, precision,
 				flags->space, flags->sign_plus);
 		while (flags->width > count)
 			count += ft_putchar(' ');
 	}
-	else if (flags->width && flags->precision && !flags->left_aligment)
+	else if (flags->width && precision && !flags->left_aligment)
 	{
-		if (flags->precision > size_number)
-			size_number = flags->precision;
-		if (flags->sign_plus || flags->space)
+		if (precision > size_number)
+			size_number = precision;
+		if (flags->sign_plus || flags->space
+			|| (number < 0 && precision > size_number - 1))
 			flags->width --;
 		while (flags->width-- > size_number)
 			count += ft_putchar(' ');
-		count += print_int_p(number, flags->precision,
+		count += print_int_p(number, precision,
 				flags->space, flags->sign_plus);
 	}
 	return (count);
 }
 
-int	aux_zero(int number, int width)
+int	aux_zero(int number, t_flags *flags)
 {
 	int	count;
 	int	size_number;
 
 	count = 0;
 	size_number = ft_numsize(number);
-	while (width-- > size_number)
+	while (flags->width-- > size_number)
 		count += ft_putchar('0');
 	count += ft_putnbr(number);
 	return (count);
