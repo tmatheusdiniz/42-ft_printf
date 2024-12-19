@@ -83,7 +83,7 @@ int	print_w(char *string, int width, int left_aligment)
 	int	count;
 	int	size_string;
 
-	count = 0;	
+	count = 0;
 	if (string == NULL)
 		string = "(null)";
 	size_string = ft_strlen(string);
@@ -93,7 +93,7 @@ int	print_w(char *string, int width, int left_aligment)
 	{
 		count += ft_putstr(string);
 		while (count < width)
-			count += ft_putchar(' ');	
+			count += ft_putchar(' ');
 		return (count);
 	}
 	while (width -- > size_string)

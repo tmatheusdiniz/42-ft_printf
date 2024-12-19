@@ -24,8 +24,6 @@ FLAGS = -Wall -Wextra -Werror
 SRCS = ./srcs
 INCLUDE = include
 
-#temporary
-
 SRCS_FILES = $(wildcard $(SRCS)/*.c)
 OBJS_FILES = $(SRCS_FILES:.c=.o)
 

@@ -53,12 +53,10 @@ int	unsignedint_leftalig(long int number, int numbersize,
 			count += ft_putchar(' ');
 		return (count);
 	}
-	if (precision > numbersize)
-		numbersize = precision;
 	if (flags->width > 0)
-		count += unsignedint_w_l(number, numbersize, flags, precision);
+		count += unsignedint_w_l(number, flags, precision);
 	else if (precision > numbersize)
-		count += unsignedint_prec(number, flags->precision);
+		count += unsignedint_prec(number, precision);
 	else
 		count += ft_putnbr(number);
 	return (count);
@@ -75,7 +73,7 @@ int	unsignedint_prec(long int number, int precision)
 	{
 		while (precision-- > numbersize)
 			count += ft_putchar('0');
-		count = ft_putnbr(number);
+		count += ft_putnbr(number);
 	}
 	else
 		count += ft_putnbr(number);
@@ -111,14 +109,11 @@ int	unsignedint_w(long int number, int numbersize,
 	return (count);
 }
 
-int	unsignedint_w_l(long int number, int numbersize,
-		t_flags *flags, int precision)
+int	unsignedint_w_l(long int number, t_flags *flags, int precision)
 {
 	int	count;
 
 	count = 0;
-	if (precision > 0 && precision > numbersize)
-		numbersize = precision;
 	if (flags->zero && precision <= 0)
 	{
 		count += ft_putnbr(number);
@@ -128,13 +123,13 @@ int	unsignedint_w_l(long int number, int numbersize,
 	else if (precision > 0)
 	{
 		count += unsignedint_prec(number, precision);
-		while (flags->width-- > numbersize)
+		while (flags->width > count)
 			count += ft_putchar(' ');
 	}
 	else
 	{
 		count += ft_putnbr(number);
-		while (flags->width-- > numbersize)
+		while (flags->width > count)
 			count += ft_putchar(' ');
 	}
 	return (count);

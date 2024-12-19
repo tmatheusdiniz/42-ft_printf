@@ -50,7 +50,8 @@ int		integer_handler(va_list args, t_flags *flags);
 int		unsignedint_handler(va_list args, t_flags *flags);
 int		pointer_handler(va_list args, t_flags *flags);
 int		percentage_handler(void);
-int		hexdecimal_handler(long unsigned int number, t_flags *flags, char token);
+int		hexdecimal_handler(long unsigned int number,
+			t_flags *flags, char token);
 
 // Aux String function
 int		print_w_p(char *string, int width, int precision, int left_aligment);
@@ -69,8 +70,7 @@ int		unsignedint_leftalig(long int number, int numbersize,
 int		unsignedint_prec(long int number, int precision);
 int		unsignedint_w(long int number, int numbersize,
 			t_flags *flags, int precision);
-int		unsignedint_w_l(long int number, int numbersize,
-			t_flags *flags, int precision);
+int		unsignedint_w_l(long int number, t_flags *flags, int precision);
 
 //Aux Pointer function
 int		print_width(int width, int left_aligment,

@@ -16,6 +16,7 @@ int	formats(const char *string, size_t *i, va_list args, t_flags *flags)
 {
 	int		count;
 	char	c;
+
 	count = 0;
 	while (ft_memchr(FLAGS, string[*i], 6) || ft_isdigit(string[*i]))
 		flags = flags_handler(string, i, flags);
