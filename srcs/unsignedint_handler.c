@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/ft_printf.h"
-#include <unistd.h>
 
 int	unsignedint_handler(va_list args, t_flags *flags)
 {
@@ -23,7 +22,7 @@ int	unsignedint_handler(va_list args, t_flags *flags)
 	count = 0;
 	numbersize = ft_numsize_unsig(number);
 	if ((flags->left_aligment || flags->width > 0)
-		&& (number == 0 && flags->precision - 1 == 0))
+		&& (number == 0 && flags->precision <= 1))
 		return (count += aux_unsigned(flags), count);
 	if (flags->left_aligment)
 		count += unsignedint_leftalig(number, numbersize,

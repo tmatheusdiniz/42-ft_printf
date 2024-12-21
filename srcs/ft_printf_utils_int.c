@@ -12,7 +12,7 @@
 
 #include "../include/ft_printf.h"
 
-int	print_aux_w(int number, t_flags *flags, int precision, int size_number)
+int	print_aux_w(long number, t_flags *flags, int precision, int size_number)
 {
 	int	count;
 
@@ -39,20 +39,35 @@ int	print_aux_w(int number, t_flags *flags, int precision, int size_number)
 	return (count);
 }
 
-int	aux_zero(int number, t_flags *flags)
+int	aux_zero(long number, t_flags *flags)
 {
 	int	count;
 	int	size_number;
 
 	count = 0;
 	size_number = ft_numsize(number);
+	if (size_number >= flags->width)
+	{
+		if (flags->sign_plus)
+			count += ft_putchar('+');
+		else if (flags->space)
+			count += ft_putchar(' ');
+		count += ft_putnbr(number);
+		return (count);
+	}
+	if (number < 0)
+	{
+		count += ft_putchar('-');
+		size_number--;
+		number *= -1;
+	}
 	while (flags->width-- > size_number)
 		count += ft_putchar('0');
 	count += ft_putnbr(number);
 	return (count);
 }
 
-int	aux_z_plus(int number, int width, int sign_plus)
+int	aux_z_plus(long number, int width, int sign_plus)
 {
 	int	count;
 	int	size_number;
@@ -62,7 +77,7 @@ int	aux_z_plus(int number, int width, int sign_plus)
 	if (number < 0)
 	{
 		count += ft_putchar('-');
-		number = -number;
+		number *= -1;
 		sign_plus = FALSE;
 	}
 	if (sign_plus && number >= 0)
@@ -73,7 +88,7 @@ int	aux_z_plus(int number, int width, int sign_plus)
 	return (count);
 }
 
-int	aux_z_space(int number, int width, int space)
+int	aux_z_space(long number, int width, int space)
 {
 	int	count;
 	int	size_number;
@@ -83,7 +98,7 @@ int	aux_z_space(int number, int width, int space)
 	if (number < 0)
 	{
 		count += ft_putchar('-');
-		number = -number;
+		number *= -1;
 		space = FALSE;
 	}
 	if (space && number >= 0)
@@ -91,5 +106,26 @@ int	aux_z_space(int number, int width, int space)
 	while (width-- > size_number)
 		count += ft_putchar('0');
 	count += ft_putnbr(number);
+	return (count);
+}
+
+int	aux_left(t_flags *flags)
+{
+	int	count;
+
+	count = 0;
+	if (flags->precision == 1 && !flags->width)
+		return (0);
+	if (flags->precision == 0)
+	{
+		count += ft_putnbr(0);
+		while (flags->width > count)
+			count += ft_putchar(' ');
+	}
+	else if (flags->precision == 1)
+	{
+		while (flags->width > count)
+			count += ft_putchar(' ');
+	}
 	return (count);
 }

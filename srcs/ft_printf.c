@@ -25,7 +25,7 @@ int	formats(const char *string, size_t *i, va_list args, t_flags *flags)
 	else if (string[*i] == 'c')
 		count += char_handler(args, flags);
 	else if (string[*i] == 'i' || string[*i] == 'd')
-		count += integer_handler(args, flags);
+		count += integer_handler(va_arg(args, int), flags);
 	else if (string[*i] == 'u')
 		count += unsignedint_handler(args, flags);
 	else if (string[*i] == 'p')

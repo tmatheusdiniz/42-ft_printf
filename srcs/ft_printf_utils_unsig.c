@@ -43,6 +43,13 @@ int	aux_unsigned(t_flags *flags)
 	int	count;
 
 	count = 0;
+	if ((flags->left_aligment || flags->width) && flags->precision == 0)
+	{
+		count += ft_putnbr(0);
+		while (flags->width > count)
+			count += ft_putchar(' ');
+		return (count);
+	}
 	while (flags->width-- > 0)
 		count += ft_putchar(' ');
 	return (count);

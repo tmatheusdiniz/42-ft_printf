@@ -46,7 +46,7 @@ int		ft_formats(char *string, size_t *i, va_list args, t_flags *flags);
 // to_conversions
 int		string_handler(va_list args, t_flags *flags);
 int		char_handler(va_list args, t_flags *flags);
-int		integer_handler(va_list args, t_flags *flags);
+int		integer_handler(long int number, t_flags *flags);
 int		unsignedint_handler(va_list args, t_flags *flags);
 int		pointer_handler(va_list args, t_flags *flags);
 int		percentage_handler(void);
@@ -59,10 +59,10 @@ int		print_p(char *string, int precision);
 int		print_w(char *sring, int width, int left_aligment);
 
 // Aux Integer function
-int		print_int_left_pp(int number, t_flags *flags, int precision);
-int		print_int_p(int number, int precision, int space, int sign_plus);
-int		print_zero(int number, int size_number, t_flags *flags);
-int		print_w_int(int number, t_flags *flags, int precision);
+int		print_int_left_pp(long number, t_flags *flags, int precision);
+int		print_int_p(long number, int precision, int space, int sign_plus);
+int		print_zero(long number, int size_number, t_flags *flags);
+int		print_w_int(long number, t_flags *flags, int precision);
 
 //Aux Unsigned Int function
 int		unsignedint_leftalig(long int number, int numbersize,
@@ -95,10 +95,12 @@ int		ft_hexsize(size_t n);
 int		ft_putnbr(long long n);
 int		ft_putnbr_unsig(unsigned int n);
 int		ft_putnbr_base(unsigned long long n, char *base);
-int		print_aux_w(int number, t_flags *flags, int precision, int size_number);
-int		aux_zero(int number, t_flags *flags);
-int		aux_z_plus(int size_number, int width, int sign_plus);
-int		aux_z_space(int size_number, int width, int space);
+int		print_aux_w(long number, t_flags *flags,
+			int precision, int size_number);
+int		aux_zero(long number, t_flags *flags);
+int		aux_z_plus(long number, int width, int sign_plus);
+int		aux_z_space(long number, int width, int space);
 int		aux_unsigned(t_flags *flags);
+int		aux_left(t_flags *flags);
 
 #endif

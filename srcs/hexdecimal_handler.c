@@ -62,24 +62,25 @@ int	print_hex_width(t_flags *flags, long number, char flag, char token)
 	int	count;
 	int	parameter;
 
-	count = ft_hexsize(number);
+	count = 0;
 	parameter = ft_hexsize(number);
-	if (number == 0 && flags->precision - 1 == 0)
+	if (number == 0 && flags->precision <= 1)
 		return (count += aux_unsigned(flags), count);
-	if (flags->precision - 1 > count)
-		count = flags->precision - 1;
+	if (flags->precision - 1 > parameter)
+		parameter = flags->precision - 1;
 	if (flags->hashtag)
-		count += 2;
-	while (flags->width > count)
+		parameter += 2;
+	while (flags->width-- > parameter)
 		count += ft_putchar(flag);
 	count += print_hashtag(number, flags->hashtag, token);
-	if (flags->precision - 1 > parameter)
-		count += print_hex_precision(number, flags->precision - 1, token);
-	if ((!(flags->precision - 1) || flags->precision - 1 <= parameter)
+	if (flags->precision - 1 > ft_hexsize(number))
+		return (count += print_hex_precision(number, flags->precision - 1, token),
+			count);
+	if ((!(flags->precision <= 1) || flags->precision - 1 <= ft_hexsize(number))
 		&& !ft_isupper(token))
 		count += ft_putnbr_base(number, HEXBASE);
-	else if ((!(flags->precision - 1) || flags->precision - 1 <= parameter)
-		&& ft_isupper(token))
+	else if ((!(flags->precision - 1)
+			|| flags->precision - 1 <= ft_hexsize(number)) && ft_isupper(token))
 		count += ft_putnbr_base(number, HEXBASEUP);
 	return (count);
 }

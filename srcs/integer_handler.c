@@ -12,13 +12,11 @@
 
 #include "../include/ft_printf.h"
 
-int	integer_handler(va_list args, t_flags *flags)
+int	integer_handler(long int number, t_flags *flags)
 {
-	int			count;
-	long int	number;
+	int	count;
 
 	count = 0;
-	number = va_arg(args, int);
 	if (flags->left_aligment)
 		count += print_int_left_pp(number, flags, flags->precision - 1);
 	else if (flags->precision > 0 && flags->width > 0)
@@ -33,11 +31,17 @@ int	integer_handler(va_list args, t_flags *flags)
 				flags->space, flags->sign_plus);
 	}
 	else
-		count += ft_putstr(ft_itoa(number));
+	{
+		if (flags->sign_plus && number >= 0)
+			count += ft_putchar('+');
+		else if (flags->space && number >= 0)
+			count += ft_putchar(' ');
+		count += ft_putnbr(number);
+	}
 	return (count);
 }
 
-int	print_int_p(int number, int precision, int space, int sign_plus)
+int	print_int_p(long number, int precision, int space, int sign_plus)
 {
 	int		count;	
 	int		size_number;
@@ -55,7 +59,7 @@ int	print_int_p(int number, int precision, int space, int sign_plus)
 		if (number < 0)
 		{
 			count += ft_putchar('-');
-			number = -number;
+			number *= -1;
 		}
 		while (precision-- > size_number)
 			count += ft_putchar('0');
@@ -66,17 +70,15 @@ int	print_int_p(int number, int precision, int space, int sign_plus)
 	return (count);
 }
 
-int	print_zero(int number, int size_number, t_flags *flags)
+int	print_zero(long number, int size_number, t_flags *flags)
 {
 	int	count;
 
 	count = 0;
+	if (flags->precision <= 1 && number == 0)
+		return (aux_left(flags));
 	if (size_number >= flags->width)
-	{
-		if (flags->sign_plus && number >= 0)
-			count += ft_putchar('+');
-		count += ft_putnbr(number);
-	}
+		count += aux_zero(number, flags);
 	else
 	{
 		if (flags->zero && flags->space && number >= 0 && !flags->sign_plus)
@@ -94,7 +96,7 @@ int	print_zero(int number, int size_number, t_flags *flags)
 	return (count);
 }
 
-int	print_w_int(int number, t_flags *flags, int precision)
+int	print_w_int(long number, t_flags *flags, int precision)
 {
 	int	count;
 	int	size_number;
@@ -122,24 +124,25 @@ int	print_w_int(int number, t_flags *flags, int precision)
 	return (count);
 }
 
-int	print_int_left_pp(int number, t_flags *flags, int precision)
+int	print_int_left_pp(long number, t_flags *flags, int precision)
 {
 	int		count;
 
 	count = 0;
+	if (precision <= 0 && number == 0)
+		return (aux_left(flags));
 	if (precision > flags->width || (precision && !flags->width))
 		count += print_int_p(number, precision,
 				flags->space, flags->sign_plus);
-	else if (precision && flags->width)
+	else if (precision > 0 && flags->width)
 		count += print_w_int(number, flags, precision);
-	else if (flags->width > 0 && !precision)
+	else if (flags->width && precision <= 0)
 	{
 		if (flags->sign_plus && number > 0)
 			count += ft_putchar('+');
 		if (flags->space)
 			count += ft_putchar(' ');
-		if (!(precision == 0 && number == 0))
-			count += ft_putnbr(number);
+		count += ft_putnbr(number);
 		while (flags->width > count)
 			count += ft_putchar(' ');
 	}
