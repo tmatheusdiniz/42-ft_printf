@@ -111,16 +111,22 @@ int	aux_z_space(long number, int width, int space)
 
 int	aux_left(t_flags *flags)
 {
-	int	count;
+	int		count;
 
 	count = 0;
 	if (flags->precision == 1 && !flags->width)
 		return (0);
-	if (flags->precision == 0)
+	if (flags->precision == 0 && flags->left_aligment)
 	{
 		count += ft_putnbr(0);
 		while (flags->width > count)
 			count += ft_putchar(' ');
+	}
+	else if (flags->precision == 0 && flags->width > 0 && flags->zero)
+	{
+		count += ft_putnbr(0);
+		while (flags->width > count)
+			count += ft_putchar('0');
 	}
 	else if (flags->precision == 1)
 	{

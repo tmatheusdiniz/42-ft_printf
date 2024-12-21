@@ -40,15 +40,26 @@ int	ft_putnbr_unsig(unsigned int n)
 
 int	aux_unsigned(t_flags *flags)
 {
-	int	count;
+	int		count;
+	char	flag;
 
 	count = 0;
-	if ((flags->left_aligment || flags->width) && flags->precision == 0)
+	if (flags->zero)
+		flag = '0';
+	else
+		flag = ' ';
+	if (flags->left_aligment && flags->precision == 0)
 	{
-		count += ft_putnbr(0);
+		count += ft_putchar('0');
 		while (flags->width > count)
-			count += ft_putchar(' ');
+			count += ft_putchar(flag);
 		return (count);
+	}
+	else if (flags->width && flags->precision == 0)
+	{
+		while (flags->width-- > 1)
+			count += ft_putchar(flag);
+		return (count += ft_putnbr(0), count);
 	}
 	while (flags->width-- > 0)
 		count += ft_putchar(' ');
