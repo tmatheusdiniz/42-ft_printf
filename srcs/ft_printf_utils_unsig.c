@@ -65,3 +65,16 @@ int	aux_unsigned(t_flags *flags)
 		count += ft_putchar(' ');
 	return (count);
 }
+
+int	aux_prec_zero(t_flags *flags)
+{
+	int	count;
+
+	count = 0;
+	if (flags->precision - 1 == 0 && flags->sign_plus)
+		return (ft_putchar('+'));
+	else if (flags->precision - 1 == 0 && flags->space)
+		return (ft_putchar(' '));
+	else
+		return (0);
+}

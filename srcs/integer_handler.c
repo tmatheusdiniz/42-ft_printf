@@ -26,7 +26,7 @@ int	integer_handler(long int number, t_flags *flags)
 	else if (flags->precision)
 	{
 		if (flags->precision - 1 == 0 && number == 0)
-			return (0);
+			return (aux_prec_zero(flags));
 		count += print_int_p(number, flags->precision - 1,
 				flags->space, flags->sign_plus);
 	}

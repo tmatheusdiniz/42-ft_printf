@@ -41,7 +41,7 @@ typedef struct s_flags
 
 // The main
 int		ft_printf(const char *string, ...);
-int		ft_formats(char *string, size_t *i, va_list args, t_flags *flags);
+int		formats(const char *string, size_t *i, va_list args, t_flags *flags);
 
 // to_conversions
 int		string_handler(va_list args, t_flags *flags);
@@ -80,7 +80,7 @@ int		print_null(int left_aligment, int width);
 //Aux Hexdecimal function
 int		print_hex_leftalig(t_flags *flags, int precision,
 			long unsigned number, char token);
-int		print_hex_precision(long unsigned number, int precision, char token);
+int		print_hex_prec(long unsigned number, int precision, char token);
 int		print_hex_width(t_flags *flags, long number, char flag, char token);
 int		print_hashtag(long unsigned number, int hashtag, char token);
 
@@ -102,5 +102,6 @@ int		aux_z_plus(long number, int width, int sign_plus);
 int		aux_z_space(long number, int width, int space);
 int		aux_unsigned(t_flags *flags);
 int		aux_left(t_flags *flags);
+int		aux_prec_zero(t_flags *flags);
 
 #endif

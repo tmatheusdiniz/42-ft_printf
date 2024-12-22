@@ -21,7 +21,7 @@ NAME = libftprintf.a
 CC = cc
 FLAGS = -Wall -Wextra -Werror
 
-SRCS = srcs/char_handler.c \
+SRCS = 	srcs/char_handler.c \
 		srcs/ft_printf.c \
 		srcs/ft_printf_flags.c \
 		srcs/ft_printf_utils.c \
@@ -39,47 +39,52 @@ OBJS = $(SRCS:.c=.o)
 
 LIBFT = ./Libft/libft.a
 
-all: intro $(NAME)
+all: $(LIBFT) intro $(NAME)
+
+$(LIBFT):
+	@echo "$(LIGHT_BLUE)Compiling libft...$(RESET)"
+	@$(MAKE) --silent -C ./Libft
+	@echo "$(LIGHT_BLUE)libft compiled and linked.$(RESET)"
 
 intro:
-	@echo "$(DARK_BLUE)"
-	@echo "██████╗ ██████╗ ██╗███╗   ██╗████████╗███████╗"
-	@echo "██╔══██╗██╔══██╗██║████╗  ██║╚══██╔══╝██╔════╝"
-	@echo "██████╔╝██████╔╝██║██╔██╗ ██║   ██║   █████╗  "
-	@echo "██╔═══╝ ██╔══██╗██║██║╚██╗██║   ██║   ██╔══╝  "
-	@echo "██║     ██║  ██║██║██║ ╚████║   ██║   ██║     "
-	@echo "╚═╝     ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝   ╚═╝   ╚═╝     "
-	@echo "$(RESET)"
-	@echo "$(YELLOW)Starting the ft_printf compilation...$(RESET)"
-
+	@if [ ! -f $(NAME) ] || [ $(LIBFT) -nt $(NAME) ]; then \
+		echo "$(DARK_BLUE)"; \
+		echo "███████╗████████╗     ██████╗ ██████╗ ██╗███╗   ██╗████████╗███████╗"; \
+		echo "██╔════╝╚══██╔══╝     ██╔══██╗██╔══██╗██║████╗  ██║╚══██╔══╝██╔════╝"; \
+		echo "█████╗     ██║        ██████╔╝██████╔╝██║██╔██╗ ██║   ██║   █████╗  "; \
+		echo "██╔══╝     ██║        ██╔═══╝ ██╔══██╗██║██║╚██╗██║   ██║   ██╔══╝  "; \
+		echo "██║        ██║███████╗██║     ██║  ██║██║██║ ╚████║   ██║   ██║     "; \
+		echo "╚═╝        ╚═╝╚══════╝╚═╝     ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝   ╚═╝   ╚═╝     "; \
+		echo "$(RESET)"; \
+		echo "$(YELLOW)Starting the ft_printf compilation...$(RESET)"; \
+	else \
+		echo "$(WHITE)$(NAME) is up-to-date!$(RESET)"; \
+	fi
 
 $(NAME): $(LIBFT) $(OBJS)
-	@echo "$(LIGHT_BLUE)🔨 Creating library: $(NAME)$(RESET)"
 	@cp $(LIBFT) $(NAME)
 	@ar rcs $(NAME) $(OBJS)
-	echo "$(WHITE)✅ $(NAME) created successfully!$(RESET)"
+	@echo "$(WHITE)✅ $(NAME) created successfully!$(RESET)"
 
 .c.o:
 	@echo "$(YELLOW)🔧 Compiling: $< -> $@$(RESET)"
 	@$(CC) $(FLAGS) -c $< -o $@
 
-$(LIBFT):
-	@make --silent -C ./Libft
-	@echo "$(LIGHT_BLUE)libft compiled and linked.$(RESET)"
-
 clean:
 	@echo "$(DARK_BLUE)🧹 Cleaning object files...$(RESET)"
 	@rm -f $(OBJS)
 	@make --silent -C ./Libft clean
-	@echo "$(DARK_BLUE)Object files cleaned!&(RESET)"
-	@echo "$(GREEN)Everything cleaned!$(RESET)"
+	@echo "$(DARK_BLUE)Object files cleaned!$(RESET)"
+	@rm -f .compiled
 
 fclean: clean
 	@rm -f $(NAME)
 	@make --silent -C ./Libft fclean
-
-bonus: all
+	@echo "$(DARK_BLUE)Full cleanup complete!$(RESET)"
 
 re: fclean all
 
+bonus: all
+
 .PHONY: all intro clean fclean bonus re
+

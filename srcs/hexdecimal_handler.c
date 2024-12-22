@@ -28,7 +28,7 @@ int	hexdecimal_handler(long unsigned int number, t_flags *flags, char token)
 	else if (flags->width)
 		count += print_hex_width(flags, number, flag, token);
 	else if (flags->precision)
-		count += print_hex_precision(number, flags->precision - 1, token);
+		count += print_hex_prec(number, flags->precision - 1, token);
 	else if (ft_isupper(token))
 		return (count += print_hashtag(number, flags->hashtag, token),
 			count += ft_putnbr_base(number, HEXBASEUP), count);
@@ -51,7 +51,7 @@ int	print_hex_leftalig(t_flags *flags, int precision,
 		if (number != 0)
 			count += ft_putchar('0') + ft_putchar(token);
 	}
-	count += print_hex_precision(number, precision, token);
+	count += print_hex_prec(number, precision, token);
 	while (flags->width > count)
 		count += ft_putchar(' ');
 	return (count);
@@ -74,7 +74,7 @@ int	print_hex_width(t_flags *flags, long number, char flag, char token)
 		count += ft_putchar(flag);
 	count += print_hashtag(number, flags->hashtag, token);
 	if (flags->precision - 1 > ft_hexsize(number))
-		return (count += print_hex_precision(number, flags->precision - 1, token),
+		return (count += print_hex_prec(number, flags->precision - 1, token),
 			count);
 	if ((!(flags->precision <= 1) || flags->precision - 1 <= ft_hexsize(number))
 		&& !ft_isupper(token))
@@ -95,7 +95,7 @@ int	print_hashtag(long unsigned number, int hashtag, char token)
 	return (count);
 }
 
-int	print_hex_precision(long unsigned number, int precision, char token)
+int	print_hex_prec(long unsigned number, int precision, char token)
 {
 	int	count;
 	int	parameter;
