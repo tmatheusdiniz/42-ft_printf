@@ -53,6 +53,11 @@ int		percentage_handler(void);
 int		hexdecimal_handler(long unsigned int number,
 			t_flags *flags, char token);
 
+// Flags
+t_flags	*initialization_flags(void);
+void	tratament_flags(const char *string, size_t *i, t_flags *flags);
+t_flags	*flags_handler(const char *string, size_t *i, t_flags *flags);
+
 // Aux String function
 int		print_w_p(char *string, int width, int precision, int left_aligment);
 int		print_p(char *string, int precision);
@@ -84,24 +89,24 @@ int		print_hex_prec(long unsigned number, int precision, char token);
 int		print_hex_width(t_flags *flags, long number, char flag, char token);
 int		print_hashtag(long unsigned number, int hashtag, char token);
 
-// Flags
-t_flags	*initialization_flags(void);
-t_flags	*flags_handler(const char *string, size_t *i, t_flags *flags);
-
-// Utils
+// Utils general
 int		ft_numsize(long long n);
-int		ft_numsize_unsig(unsigned int n);
 int		ft_hexsize(size_t n);
 int		ft_putnbr(long long n);
-int		ft_putnbr_unsig(unsigned int n);
 int		ft_putnbr_base(unsigned long long n, char *base);
+
+// Utils int
 int		print_aux_w(long number, t_flags *flags,
 			int precision, int size_number);
 int		aux_zero(long number, t_flags *flags);
 int		aux_z_plus(long number, int width, int sign_plus);
 int		aux_z_space(long number, int width, int space);
-int		aux_unsigned(t_flags *flags);
 int		aux_left(t_flags *flags);
 int		aux_prec_zero(t_flags *flags);
+
+// Utils Unsigned int
+int		ft_numsize_unsig(unsigned int n);
+int		ft_putnbr_unsig(unsigned int n);
+int		aux_unsigned(t_flags *flags);
 
 #endif

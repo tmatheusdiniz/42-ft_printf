@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../include/ft_printf.h"
-#include <stddef.h>
 
 t_flags	*initialization_flags(void)
 {
