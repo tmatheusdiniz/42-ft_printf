@@ -67,7 +67,7 @@ int		print_w(char *sring, int width, int left_aligment);
 int		print_int_left_pp(long number, t_flags *flags, int precision);
 int		print_int_p(long number, int precision, int space, int sign_plus);
 int		print_zero(long number, int size_number, t_flags *flags);
-int		print_w_int(long number, t_flags *flags, int precision);
+int		p_w_i(long number, int size_number, t_flags *flags, int precision);
 
 //Aux Unsigned Int function
 int		unsignedint_leftalig(long int number, int numbersize,
@@ -85,7 +85,8 @@ int		print_null(int left_aligment, int width);
 //Aux Hexdecimal function
 int		print_hex_leftalig(t_flags *flags, int precision,
 			long unsigned number, char token);
-int		print_hex_prec(long unsigned number, int precision, char token);
+int		print_h_p(long unsigned number, t_flags *flags,
+			int precision, char token);
 int		print_hex_width(t_flags *flags, long number, char flag, char token);
 int		print_hashtag(long unsigned number, int hashtag, char token);
 
@@ -103,6 +104,7 @@ int		aux_z_plus(long number, int width, int sign_plus);
 int		aux_z_space(long number, int width, int space);
 int		aux_left(t_flags *flags);
 int		aux_prec_zero(t_flags *flags);
+int		int_wid(t_flags *flags);
 
 // Utils Unsigned int
 int		ft_numsize_unsig(unsigned int n);

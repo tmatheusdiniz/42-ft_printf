@@ -20,9 +20,9 @@ int	integer_handler(long int number, t_flags *flags)
 	if (flags->left_aligment)
 		count += print_int_left_pp(number, flags, flags->precision - 1);
 	else if (flags->precision > 0 && flags->width > 0)
-		count += print_w_int(number, flags, flags->precision - 1);
+		count += p_w_i(number, ft_numsize(number), flags, flags->precision - 1);
 	else if (flags->width)
-		count += print_w_int(number, flags, flags->precision - 1);
+		count += p_w_i(number, ft_numsize(number), flags, flags->precision - 1);
 	else if (flags->precision)
 	{
 		if (flags->precision - 1 == 0 && number == 0)
@@ -96,29 +96,27 @@ int	print_zero(long number, int size_number, t_flags *flags)
 	return (count);
 }
 
-int	print_w_int(long number, t_flags *flags, int precision)
+int	p_w_i(long number, int size_number, t_flags *flags, int precision)
 {
 	int	count;
-	int	size_number;
 
 	count = 0;
-	size_number = ft_numsize(number);
 	if (flags->left_aligment || precision > 0)
 		return (print_aux_w(number, flags, precision, size_number));
 	else if (flags->width > 0 && flags->zero)
 		count += print_zero(number, ft_numsize(number), flags);
 	else
 	{
-		if (flags->sign_plus || flags->space)
+		if (number == 0 && flags->precision == 1)
+			return (count += int_wid(flags), count);
+		if ((flags->sign_plus || flags->space) && number > 0)
 			flags->width --;
 		while (flags->width -- > size_number)
 			count += ft_putchar(' ');
-		if (flags->sign_plus && number >= 0)
+		if (flags->sign_plus && number > 0)
 			count += ft_putchar('+');
-		else if (flags->space && number >= 0)
+		else if (flags->space && number > 0)
 			count += ft_putchar(' ');
-		if (precision == 0 && number == 0)
-			return (count += ft_putchar(' '), 0);
 		count += ft_putnbr(number);
 	}
 	return (count);
@@ -135,7 +133,7 @@ int	print_int_left_pp(long number, t_flags *flags, int precision)
 		count += print_int_p(number, precision,
 				flags->space, flags->sign_plus);
 	else if (precision > 0 && flags->width)
-		count += print_w_int(number, flags, precision);
+		count += p_w_i(number, ft_numsize(number), flags, precision);
 	else if (flags->width && precision <= 0)
 	{
 		if (flags->sign_plus && number > 0)

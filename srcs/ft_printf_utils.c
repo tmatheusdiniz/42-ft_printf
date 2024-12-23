@@ -68,3 +68,24 @@ int	ft_putnbr_base(unsigned long long n, char *base)
 	count += ft_putchar(base[n % base_size]);
 	return (count);
 }
+
+int	int_wid(t_flags *flags)
+{
+	int		count;
+	char	token;
+
+	count = 0;
+	if (flags->sign_plus)
+		token = '+';
+	else if (flags->space)
+		token = ' ';
+	if (flags->sign_plus || flags->space)
+	{
+		while (flags->width -- > 1)
+			count += ft_putchar(' ');
+		return (count += ft_putchar(token), count);
+	}
+	while (flags->width-- > 0)
+		count += ft_putchar(' ');
+	return (count);
+}
