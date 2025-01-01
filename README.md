@@ -18,7 +18,7 @@
     <span> · </span>
     <a href="#%EF%B8%8F-resources">Resources</a>
     <span> · </span>
-    <a href="#%EF%B8%8F-testing">Testing</a>
+    <a href="#-testing">Testing</a>
 </h3>
 
 ## 🖨️ ft_printf
