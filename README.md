@@ -61,4 +61,15 @@ int main(void)
 [Oracle Docs](https://docs.oracle.com/cd/E19253-01/817-6223/chp-fmt-1.2/index.html)
 
 ## 🧪 Testing
+> I used many repositories for testing. In addition, I've also used a few main makes on my own.
+> 
+> If you want to do these tests, contact me at the e-mail address I have in my git.
 
+#### References to other repositories i used to test
+* [printfTester](https://github.com/Tripouille/printfTester)
+* [ft_printf_tester](https://github.com/paulo-santana/ft_printf_tester)
+* [ft_printf_test](https://github.com/cacharle/ft_printf_test)
+
+## 📞 Contact me
+
+If you are interested in contacting me with any questions, you can do so via slack <b>mreinald</b> or via the e-mail address i have set up on my github.
