@@ -28,6 +28,16 @@
     <img src="https://github.com/tmatheusdiniz/42-libft/releases/download/Note/score.png")>
 </div>
 
+## 🚨 Disclaimer
+At 42, projects are made based on a few rules, such as: 
+
+	- No for, do while, switch, case or goto are allowed
+	- No more than 25 lines per function and 5 functions per file
+	- No assigns and declarations in the same line (unless static)
+	- No more than 5 variables in 1 function
+	... 
+ <b>Therefore, I didn't have the best possible efficiency in this project and, due to the rules, I ended the project having too many functions, and I didn't have time to analyze and improve the efficiency of my code, to have fewer functions.</b>
+
 ## 📖 About
 > The aim of this project is to recreate the printf function from the standard <stdio.h> library of the C language.
 > 
