@@ -3,19 +3,23 @@
 </h1>
 
 <p align="center">
-<img src="https://github.com/tmatheusdiniz/42-ft_printf/releases/download/images/ft_printf.webp" width="1000" hidth="400">
+<img src="https://github.com/tmatheusdiniz/42-ft_printf/releases/download/images/ft_printf.webp" width="1000" hidth="200">
 </P>
 <p align="center">
     <b><i>This project is part of first milestone of the 42 cursus</i></b>
 </p>
 
 <h3 align="center">
-    <a href="#-index">Index</a>
+    <a href="#-score">Score</a>
     <span> · </span>
-    <a href="#FFD700-about">About</a>
+    <a href="#-about">About</a>
     <span> · </span>
-    <a href="#%EF%B8%8F-resources">Resources</a>
-<h3/>
+    <a href="#-usage">Usage</a>
+    <span> · </span>
+    <a href="#-resources">Resources</a>
+    <span> · </span>
+    <a href="#-testing">Testing</a>
+</h3>
 
 ## 🖨️ ft_printf
 <br>
@@ -49,6 +53,12 @@ int main(void)
       return (0);
 }
 ```
-## Resources
+## 🛠️ Resources
 > Here are the resources I used to carry out this project:
+
+[C language Docs](https://www.gnu.org/software/c-intro-and-ref/manual/c-intro-and-ref.html)
+
+[Oracle Docs](https://docs.oracle.com/cd/E19253-01/817-6223/chp-fmt-1.2/index.html)
+
+## 🧪 Testing
 
