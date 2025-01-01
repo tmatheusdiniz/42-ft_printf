@@ -10,7 +10,7 @@
 </p>
 
 <h3 align="center">
-    <a href="#-ft_printf">Score</a>
+    <a href="#%EF%B8%8F-ft_printf">Score</a>
     <span> · </span>
     <a href="#-about">About</a>
     <span> · </span>
