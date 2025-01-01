@@ -14,11 +14,11 @@
     <span> · </span>
     <a href="#-about">About</a>
     <span> · </span>
-    <a href="#-usage">Usage</a>
+    <a href="#%EF%B8%8F-usage">Usage</a>
     <span> · </span>
-    <a href="#-resources">Resources</a>
+    <a href="#%EF%B8%8F-resources">Resources</a>
     <span> · </span>
-    <a href="#-testing">Testing</a>
+    <a href="#%EF%B8%8F-testing">Testing</a>
 </h3>
 
 ## 🖨️ ft_printf
