@@ -21,7 +21,6 @@
 
 # define HEXBASE "0123456789abcdef"
 # define HEXBASEUP "0123456789ABCDEF"
-# define TYPES "%cspdiuxX\0"
 # define FLAGS "-0.# +"
 
 # define TRUE 1
