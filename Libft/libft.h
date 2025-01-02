@@ -20,17 +20,17 @@
 # include <ctype.h>
 # include <unistd.h>
 
-//Functions from --stdio.h--
+//Functions from <stdio.h>
 
 int		ft_putchar(int c);
 
-//Functions from --stdlib.h--
+//Functions from <stdlib.h>
 
 int		ft_atoi(const char *ptr);
 char	*ft_strdup(const char *s);
 void	*ft_calloc(size_t nmemb, size_t size);
 
-//Functions from --string.h--
+//Functions from <string.h>
 
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strchr(const char *s, int c);
@@ -40,7 +40,7 @@ size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 size_t	ft_strlcat(char *dst, char *src, size_t size);
 
-//Functions from --strings.h--
+//Functions from <strings.h>
 
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 void	ft_bzero(void *s, size_t n);
@@ -49,7 +49,7 @@ void	*ft_memchr(const void *s, int c, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
 void	*ft_memmove(void *dest, const void *src, size_t n);
 
-//Functions from --ctype.h--
+//Functions from <ctype.h>
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
