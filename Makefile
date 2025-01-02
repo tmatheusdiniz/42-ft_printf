@@ -69,7 +69,7 @@ $(NAME): $(LIBFT) $(OBJS)
 
 .c.o:
 	@$(CC) $(FLAGS) -c $< -o $@
-	@sleep 0.02
+	@sleep 0.01
 
 clean:
 	@echo "$(DARK_BLUE)🧹 Cleaning object files...$(RESET)"
