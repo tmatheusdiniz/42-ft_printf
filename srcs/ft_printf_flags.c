@@ -23,7 +23,6 @@ t_flags	*initialization_flags(void)
 	flags->left_aligment = FALSE;
 	flags->zero = FALSE;
 	flags->width = FALSE;
-	flags->dot = FALSE;
 	flags->precision = FALSE;
 	flags->hashtag = FALSE;
 	flags->space = FALSE;
